@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" ng-app="reminder">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <!--<script src="//cdn.bootcss.com/angular.js/1.5.8/angular.js"></script>-->
+    <script src="angular.js"></script>
+    <script src="jquery.js"></script>
+    <script src="index.js"></script>
+</head>
+<body  ng-controller="mainCtrl">
+<div class="biginner">
+    <div class="bigleft">
+        <div class="icloudbox">
+            <div class="iboxleft">
+                <div class="icloudicon"></div>
+                <div class="tishi">
+                    <span>提醒事项</span>
+                    <div class="chevron"></div>
+                </div>
+            </div>
+            <div class="iboxright" ng-click="add()"></div>
+        </div>
+
+        <div class="jihua">
+            <div class="biao"></div>
+            <span>已计划</span>
+        </div>
+       <!-- <ul class="xinjianitem ">
+        <color-item ng-repeat="col in colors"></color-item>
+        </ul>-->
+        <div ng-color-ul>
+            <li  class="item " data-id="{{col.id}}" ng-repeat="col in colors" ng-click="setcurrent(col)">
+                <div class="itemleft {{col.them}} " ></div>
+                <div class="itemright"> <span> {{col.title}} </span>
+                    <input type="text" ng-model="col.itemzi" >
+                    <div class="wifi"></div>
+                </div>
+            </li>
+        </div>
+
+    </div>
+    <div class="bigright">
+        <div class="brtop">
+            <div class="ssbox">
+                <div class="ss"></div>
+                <input type="text" placeholder="搜索所有提醒">
+            </div>
+            <div class="bryou">
+                <span>用户名</span>
+                <div class="chevron"></div>
+                <div class="wenhao"></div>
+
+            </div>
+        </div>
+        <div class="brbottom">
+            <!--<br-top></br-top>-->
+            <!--标题-->
+            <div class="brbtop">
+                <div class="list {{current.them}}">{{current.title}}</div>
+                <div class="listyou {{current.them}}">选项</div>
+            </div>
+            <!--已完成-->
+            <div class="done" ng-click="xianxian()">
+                <div class="jiantou" ></div>
+                <div class="contant {{current.them}}" >已完成：{{addstate()}}</div>
+
+            </div>
+             <ul class="donelist">
+                 <li class="dlitem {{current.them}}" ng-repeat="v in current.todos|filter:{state:1}" ng-click="dianji(v.id)">
+                     <div class="yuanxin {{current.them}}" ng-click="v.state=0" ></div>
+                     <div class="zizi " >{{v.title}}<div class="del" ng-click="delete(v.id)">删除</div></div>
+                 </li>
+                </ul>
+
+            <!--新建的-->
+            <ul class="liebiao">
+                <li class="lbitem {{current.them}}" ng-repeat="v in current.todos|filter:{state:0}">
+                    <div class="yuan {{current.them}}" ng-click="v.state=1"></div>
+                    <div class="zi ">{{v.title}}
+                        <div class="del" ng-click="delete(v.id)">删除</div>
+                    </div>
+                </li>
+                <!--<li class="lbitem active">
+                    <div class="yuan"></div>
+                    <div class="zi">hh
+                        <div class="del">删除</div>
+                    </div>
+                </li>
+                <li class="lbitem">
+                    <div class="yuan"></div>
+                    <div class="zi">hh</div>
+                </li>
+                <li class="lbitem">
+                    &lt;!&ndash;<div class="yuan"></div>&ndash;&gt;
+                    <div class="zi">新项目...</div>
+                </li>-->
+                <li class="lbitem addinput">
+                    <!--<div class="yuan"></div>-->
+                    <div class="zi">
+                        <input type="text" ng-model="item" ng-keyup="addtodo($event)" placeholder="新项目">
+                        <!--div-->
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--364  236-->
+    <!--选项-->
+    <div ng-xuan>
+        <div class="xxtop">
+            <input type="text" ng-model="current.title" class="{{current.them}}" >
+            <!--active input-->
+            <div class="xxliebiao">列表颜色</div>
+            <div class="colorbox">
+                <div class="color1  {{v.theme}} " ng-repeat="v in circle" ng-click="change(v)" >
+                    <!--id="cll1"-->
+                    <div class="colorinner {{v.theme}} "></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="xxbottom">
+            <div class="xxbdel" ng-click="shanchu(current.id)">删除</div>
+            <div class="xxdone">完成</div>
+            <div class="xxquxiao">取消</div>
+        </div>
+        <div class="sanjiao"></div>
+
+    </div>
+    <!--<div class="xuanxiang">
+        <div class="xxtop">
+            <input type="text" placeholder="提醒" >
+            <div class="xxliebiao">列表颜色</div>
+            <div class="colorbox">
+                <div class="color1 mar">
+                    &lt;!&ndash;id="cll1"&ndash;&gt;
+                    <div class="colorinner" id="cl1"></div>
+                </div>
+                <div class="color1 " id="cll2">
+                    <div class="colorinner" id="cl2"></div>
+
+                </div>
+
+                <div class="color1" >
+                    &lt;!&ndash;id="cll3"&ndash;&gt;
+                    <div class="colorinner" id="cl3"></div>
+
+                </div>
+
+                <div class="color1" >
+                    &lt;!&ndash;id="cll4"&ndash;&gt;
+                    <div class="colorinner" id="cl4"></div>
+
+                </div>
+                <div class="color1 " >
+                    &lt;!&ndash;id="cll5"&ndash;&gt;
+                    <div class="colorinner" id="cl5"></div>
+
+                </div>
+                <div class="color1 " >
+                    &lt;!&ndash;id="cll6"&ndash;&gt;
+                    <div class="colorinner" id="cl6"></div>
+
+                </div>
+                <div class="color1 "  >
+                    &lt;!&ndash;id="cll7"&ndash;&gt;
+                    <div class="colorinner" id="cl7"></div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="xxbottom">
+            <div class="xxbdel">删除</div>
+            <div class="xxdone">完成</div>
+            <div class="xxquxiao">取消</div>
+        </div>
+    </div>-->
+    <!--355 172-->
+</div>
+</body>
+</html>
