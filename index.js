@@ -524,6 +524,15 @@ $(function(){
         $('.brbottom').find('ul .active').removeClass('active');
         $(this).addClass('active')
     })
+    $('.jiantou').on('click',function(){
+        $(this).css('display','none');
+        $('.jiantou2').css('display','block');
+    })
+    $('.jiantou2').on('click',function(){
+        $(this).css('display','none');
+        $('.jiantou').css('display','block');
+    })
+
 })
 
 
